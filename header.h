@@ -25,12 +25,11 @@ int get_move ( int[COLS][ROWS] ) ;
 // Returns 0 if successful, -1 otherwise
 int add_move ( int b[COLS][ROWS], int col, int colour ) ;
 
-// determines who (if anybody) has won.  Returns the player id of the
-// winner, otherwise 0
-int winner ( int[COLS][ROWS] ) ;
-
 // determines if the board is completely full or not
 int board_full ( int[COLS][ROWS] ) ;
 
+// determines who (if anybody) has won.  Returns the player id of the
+// winner, otherwise 0
+int winner ( int[COLS][ROWS] ) ;
 
 #endif //CONNECT4_HEADER_H
