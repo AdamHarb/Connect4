@@ -9,6 +9,7 @@ int display_board ( int[COLS][ROWS] ) ;
 
 // sets up the board to an empty state
 int setup_board ( int[COLS][ROWS] ) ;
+rahaf rammal
 
 // Returns TRUE if the specified column in the board is completely full
 // FALSE otherwise
