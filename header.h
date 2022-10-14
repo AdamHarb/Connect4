@@ -27,7 +27,7 @@ int get_move ( int board[COLS][ROWS] );
 // adds a token of the given value (1 or 2) to the board at the
 // given column (col between 1 and COLS inclusive)
 // Returns 0 if successful, -1 otherwise
-int add_move ( int b[COLS][ROWS], int col, int colour );
+void add_move (char b[COLS][ROWS], int col, char colour );
 
 // determines if the board is completely full or not
 int board_full (int board[COLS][ROWS]);
