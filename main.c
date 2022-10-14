@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include "header.h"
 
-int main() {
-    char k[ROWS][COLS];
-}
 
 // determines who (if anybody) has won.  Returns the player id of the
 // winner (1 for the first, 2 for the second), and 0 if there is a tie
@@ -64,8 +61,8 @@ int winner(int board[COLS][ROWS]) {
 
 int display_board(int board[COLS][ROWS]) {
     printf("---------------\n");
-    for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
+    for (int i = 0; i < COLS; i++) {
+        for (int j = 0; j < ROWS; j++) {
             printf("|%d", board[i][j]);
         }
         printf("|\n");
@@ -74,70 +71,67 @@ int display_board(int board[COLS][ROWS]) {
     return 0;
 }
 
-int setup_board(int board[COLS][ROWS]) {
+void setup_board(char board[COLS][ROWS]) {
+    for (int i = 0; i < COLS; i++) {
+        for (int j = 0; j < ROWS; j++) {
+            board[i][j] = '-';
+        }
+    }
+}
+
+bool column_full(char board[COLS][ROWS], int col) {
     for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            board[i][j] = 0;
-        }
+        if (board[col][i] == '-')
+            return false;
     }
-    return board;
+    return true;
 }
 
-int column_full(int board[COLS][ROWS], int col) {
-    for (int j = 1; j < COLS; j++) {
-        if (j == col) {
-            for (int i = 0; i < ROWS; i++) {
-                if (board[col][i] == 0) return 0; // 0 means its false ( teh board is not completely full)
-
+    bool board_full(char board[COLS][ROWS]) {
+        for (int i = 0; i < COLS; i++) {
+            if (!column_full(board, i)) {
+                return false;
             }
-            return 1; // 1 means its true the board is completely full
+        }
+        return true;
+    }
+
+    void get_move(char board[COLS][ROWS], char color) {
+        int n;
+
+        printf("Enter a move: \n");
+
+        scanf("%d", &n);
+
+        if (n > 0 && n < COLS) { // Move valid (so far)
+            if (!column_full(board[COLS][ROWS], n)) // Move valid (fully)
+                add_move(board, n, color);
+            else
+                printf("Invalid move.");
+
         }
     }
-}
 
-bool column_full2(int board[COLS][ROWS], int col) {
-    for (int j = 1; j < COLS; j++) {
-        if (j == col) {
-            for (int i = 0; i < ROWS; i++) {
-                if (board[col][i] == 0) return false; // 0 means its false ( teh board is not completely full)
-
-            }
-            return true; // 1 means its true the board is completely full
-        }
-    }
-}
-
-int board_full(int board[COLS][ROWS]) {
-    for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            if (board[i][j] == 0) return 1; // if 1 that means the board is not full yet
-        }
-    }
-}
-
-int get_move(int board[COLS][ROWS]) {
-    int n;
-    printf("enter a move\n");
-    scanf("%c", &n);
-    if (n > 0 && n < COLS) { // move valid
-        if (column_full(board[COLS][ROWS], n) == 0) { // the col is not full
-            return n;
-        } else return -1; // move invalid
-    }
-}
-
-void add_move(char b[COLS][ROWS], int col, char colour) {
-    col--;
-    if (col > COLS) {
-        printf("Column out of bounds, please try again.");
-    } else {
-                for (int i = ROWS; i > 0; i--) {
-                    if (b[i][col] == '-') {
-                        b[i][col] = colour;
-                    }
-                    else if (i == 1) {
-                        printf("Column full, please try again.");
-                    }
+    void add_move(char b[COLS][ROWS], int col, char colour) {
+        col--; // So the user doesn't have to input columns on a zero based index basis
+        if (col >= COLS) {
+            printf("Column out of bounds, please try again.");
+        } else {
+            for (int i = ROWS - 1; i > 0; i--) {
+                if (b[col][i] == '-') {
+                    b[col][i] = colour;
+                    break;
+                } else if (i == 1) {
+                    printf("Column full, please try again.");
                 }
+            }
+        }
     }
+
+int main() {
+    char k[ROWS][COLS];
+    setup_board(k);
+    int* pointer = &k;
+    display_board(pointer);
+
 }
