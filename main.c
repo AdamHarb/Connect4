@@ -433,13 +433,13 @@ int genMove(int board[ROWS][COLS], int currentSide) {
     }
 
     // If none of the above happen, simply chooses the closest move to the center possible.
-    if !(column_full(board, 3)) {return 3;}
-    if !(column_full(board, 2)) {return 2;}
-    if !(column_full(board, 4)) {return 4;}
-    if !(column_full(board, 1)) {return 1;}
-    if !(column_full(board, 5)) {return 5;}
-    if !(column_full(board, 0)) {return 0;}
-    if !(column_full(board, 6)) {return 6;}
+    if (!(column_full(board, 3))) {return 3;}
+    if (!(column_full(board, 2))) {return 2;}
+    if (!(column_full(board, 4))) {return 4;}
+    if (!(column_full(board, 1))) {return 1;}
+    if (!(column_full(board, 5))) {return 5;}
+    if (!(column_full(board, 0))) {return 0;}
+    if (!(column_full(board, 6))) {return 6;}
 }
 
 
