@@ -114,7 +114,7 @@ Requirements:   b: A 2D array of ints of dimensions [6][7], representing the gam
 
 Effects:        If the board is completely full, returns true.
                 Else, returns false.
- */
+*/
 bool board_full(int b[ROWS][COLS]) {
     for (int i = 0; i < COLS; i++) {
         if (!column_full(b, i)) {
