@@ -3,7 +3,7 @@
 #include "header.h"
 #include <assert.h>
 /*
-Requirements:   board: A 2D array of ints of dimensions [6][7], representing the game board.
+Requirements:   board: A 2D array of ints of dimensions [6][7], representing the game   board. 
 
 Effects:        In the case of a winner, returns an int representing the color of the winner (1 for red, 2 for yellow).
                 In the case of a tie, returns 0.
