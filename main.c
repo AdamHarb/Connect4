@@ -195,7 +195,7 @@ int check3H(int board[ROWS][COLS]) {
             } else {
                 if (board[i][j] == board[i][j + 1] && board[i][j] == board[i][j + 2]) {
                     // add a piece either to the left or the right
-                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))) && (board[i-1][j-1] != 0) {
+                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))) && ((i-1 < 0)  || board[i-1][j-1] != 0) {
                         return (j - 1);
                     } else if (!((j + 3 >= COLS) || (board[i][j + 3] != 0))) && (board[i-1][j+4] != 0) {
                         return (j + 3);
@@ -271,7 +271,7 @@ int check2H(int board[ROWS][COLS], int currentSide) {
             } else {
                 if ((board[i][j] == board[i][j + 1]) && (board[i][j] == currentSide)) {
                     // add a piece either to the left or the right
-                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))) && (board[i-1][j-1] != 0) {
+                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))) && ((i-1 < 0)|| board[i-1][j-1] != 0) {
                         return (j - 1);
                     } else if (!((j + 2 >= COLS) || (board[i][j + 2] != 0))) && (board[i-1][j+2] != 0) {
                         return (j + 2);
@@ -291,7 +291,7 @@ int check2DA(int board[ROWS][COLS], int currentSide) {
             } else {
                 if ((board[i][j] == board[i + 1][j + 1]) && (board[i][j] == currentSide)) {
                     // add a piece that's to the right and 1 up
-                    if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) && (board[i-2][j-1] != 0) {
+                    if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) && (((i-2 < 0) && !(i-1 < 0)) || board[i-2][j-1] != 0) {
                         return (j - 1);
                     } else if (!((i + 2 >= ROWS) || (j + 2 >= COLS) || (board[i + 2][j + 2] != 0))) && (board[i+1][j+2] != 0) {
                         return (j + 2);
@@ -312,7 +312,7 @@ int check2DD(int board[ROWS][COLS], int currentSide) {
                 if ((board[i][j] == board[i - 1][j + 1]) && (board[i][j] == currentSide)) {
                     if (!((i + 1 >= ROWS) || (j - 1 < 0) || (board[i + 1][j - 1] != 0))) && (board[i][j-1] != 0) {
                         return (j - 1);
-                    } else if (!((i - 2 < ROWS) || (j + 2 >= COLS) || (board[i - 2][j + 2] != 0))) && (board[i-3][j+2] != 0) {
+                    } else if (!((i - 2 < ROWS) || (j + 2 >= COLS) || (board[i - 2][j + 2] != 0))) && (((i-3 < 0) && !(i-2 < 0)) || board[i-3][j+2] != 0) {
                         return (j + 2);
                     }
                 }
@@ -347,9 +347,9 @@ int check1H(int board[ROWS][COLS], int currentSide) {
             } else {
                 if (board[i][j] == currentSide) {
                     // add a piece either to the left or the right
-                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))) && (board[i-1][j-1] != 0){
+                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))) && ((i-1 < 0) || board[i-1][j-1] != 0){
                         return (j - 1);
-                    } else if (!((j + 1 >= COLS) || (board[i][j + 1] != 0))) && (board[i-1][j+1] != 0) {
+                    } else if (!((j + 1 >= COLS) || (board[i][j + 1] != 0))) && ((i-1 < 0) || board[i-1][j+1] != 0) {
                         return (j + 1);
                     }
                 }
@@ -367,7 +367,7 @@ int check1DA(int board[ROWS][COLS], int currentSide) {
             } else {
                 if (board[i][j] == currentSide) {
                     // add a piece that's to the right and 1 up
-                    if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) && (board[i-2][j-1] != 0) {
+                    if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) && (((i-2 < 0) && !(i-1 < 0)) || board[i-2][j-1] != 0) {
                         return (j - 1);
                     } else if (!((i + 1 >= ROWS) || (j + 1 >= COLS) || (board[i + 1][j + 1] != 0))) && (board[i][j+1] != 0) {
                         return (j + 1);
@@ -388,7 +388,7 @@ int check1DD(int board[ROWS][COLS], int currentSide) {
                 if ((board[i][j] == board[i - 1][j + 1]) && (board[i][j] == currentSide)) {
                     if (!((i + 1 >= ROWS) || (j - 1 < 0) || (board[i + 1][j - 1] != 0))) && (board[i][j-1] != 0) {
                         return (j - 1);
-                    } else if (!((i - 1 < ROWS) || (j + 1 >= COLS) || (board[i - 1][j + 1] != 0))) && (board[i-2][j+1] != 0) {
+                    } else if (!((i - 1 < ROWS) || (j + 1 >= COLS) || (board[i - 1][j + 1] != 0))) && (((i-2 < 0) && !(i-1 < 0)) || board[i-2][j+1] != 0) {
                         return (j + 1);
                     }
                 }
