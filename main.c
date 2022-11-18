@@ -131,7 +131,7 @@ Requirements:   b: A 2D array of ints of dimensions [6][7], representing the gam
 
 Effects:        If the move is valid, it will be played, and the function will return 1.
                 Else, the function will print the corresponding message and return 0.
- */
+*/
 int check_move(int b[ROWS][COLS], int n, int color) {
     if (n >= 0 && n < COLS) { // Move valid (so far)
         if (!column_full(b, n)) {
@@ -155,7 +155,6 @@ Effects:        Prompts the player to enter a column into which to place a piece
                 If the move is valid, makes the move and returns 1.
                 If the move is invalid due to the column being full, prints "Column is full." and returns 0.
                 If the move is invalid due to being out of bounds, prints "Invalid move." and returns 0.
-
 */
 int get_move(int b[ROWS][COLS], int color) {
     int n;
@@ -175,7 +174,7 @@ Requirements:   b: A 2D array of integers of dimensions [6][7], representing the
 
 Effects:    Adds a piece of the appropriate color (1 for red, 2 for yellow) to the chosen column of the board
             if the column is not full. Otherwise, does nothing.
- */
+*/
 void add_move(int b[ROWS][COLS], int col, int color) {
     for (int i = ROWS - 1; i >= 0; i--) {
         if (b[i][col] == 0) {
@@ -278,7 +277,7 @@ int genMove(int board[ROWS][COLS], int currentSide) {
                         && (board[i][j-1] != 0)) {
                         return (j - 1);
                     } else if (!((i - 3 < ROWS) || (j + 3 >= COLS) || (board[i - 3][j + 3] != 0))
-                        && (board[i][j-1] != 0)) {
+                               && (board[i][j-1] != 0)) {
                         return (j + 3);
                     }
                 }
@@ -461,7 +460,7 @@ int main() {
 
     scanf("%s", &decision);
 
-    // Main driver loop, which alternates turns until someone wins or the board becomes completely full.
+    //Main driver loop, which alternates turns until someone wins or the board becomes completely full.
     do {
         // Turn indicator message
         if (currentSide == red) {
