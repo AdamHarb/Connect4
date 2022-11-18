@@ -2,15 +2,12 @@
 #include <time.h>
 #include "header.h"
 
-// determines who (if anybody) has won.  Returns the player id of the
-// winner (1 for the first, 2 for the second), and 0 if there is a tie
-//there is 3 cases: vertical, horizontal, and diagonal(downwards and upwards)
-// Determines who, if anyone, has won. Returns 1 for red, 2 for yellow, and 0 for a tie.
+/*
+Requirements:   board: A 2D array of ints of dimensions [6][7], representing the game board.
 
-
-//Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
-//Effects: Returns the id of the winner if exists; 1 if Red is the winner, 2 if yellow is the winner,
-//         and 0 if there is still no winner (there is a tie)
+Effects:        In the case of a winner, returns an int representing the color of the winner (1 for red, 2 for yellow).
+                In the case of a tie, returns 0.
+ */
 
 int winnerF(int board[ROWS][COLS]) {
     // Checks for vertical wins
@@ -67,8 +64,11 @@ int winnerF(int board[ROWS][COLS]) {
     return 0; // Returns 0 if there is a tie
 }
 
-//Requires: an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
-//Effects: Prints the board in a grid layout where 0 represents an empty cell, 1 represents a red piece, and 2 represents a yellow piece.
+/*
+Requirements:   board: A 2D array of ints of dimensions [6][7], representing the game board.
+
+Effects:        Prints the board in a grid layout where 0 represents an empty cell, 1 represents a red piece, and 2 represents a yellow piece.
+ */
 void display_board(int board[ROWS][COLS]) { // int[x][y] int[y][x]
     printf("---------------\n");
 
@@ -81,8 +81,11 @@ void display_board(int board[ROWS][COLS]) { // int[x][y] int[y][x]
     printf("---------------\n");
 }
 
-//Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
-//Effects: Sets all the elements of the array to "0".
+/*
+Requirements:   board: A 2D array of ints of dimensions [6][7], representing the game board.
+
+Effects:        Sets every element of the 2D array to 0.
+ */
 void setup_board(int board[ROWS][COLS]) {
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -90,8 +93,14 @@ void setup_board(int board[ROWS][COLS]) {
         }
     }
 }
-//Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
-//Effects: Determines whether a given column is full.
+
+/*
+Requirements:   board: A 2D array of ints of dimensions [6][7], representing the game board.
+                col: An int representing the column to be checked.
+
+Effects:        If the column is  full, returns true.
+                Else, returns false.
+ */
 bool column_full(int board[ROWS][COLS], int col) {
     for (int i = 0; i < ROWS; i++) {
         if (board[i][col] == 0)
@@ -99,8 +108,13 @@ bool column_full(int board[ROWS][COLS], int col) {
     }
     return true;
 }
-//Requires : an int[][] that represents a board of certain dimensions however in our case it is a 6 x 7
-//Effects: Determines whether the board is completely full.
+
+/*
+Requirements:   b: A 2D array of ints of dimensions [6][7], representing the game board.
+
+Effects:        If the board is completely full, returns true.
+                Else, returns false.
+ */
 bool board_full(int b[ROWS][COLS]) {
     for (int i = 0; i < COLS; i++) {
         if (!column_full(b, i)) {
@@ -110,11 +124,14 @@ bool board_full(int b[ROWS][COLS]) {
     return true;
 }
 
-//Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
-//           and n : the index of the column and color : the color of the token I want to insert ( yellow or red)
-//Effects: it adds the token to the required column if the column is not full.
-//         However, it will not add the token if the column is full or if the move is invalid
-//         and will print the corresponding message
+/*
+Requirements:   b: A 2D array of ints of dimensions [6][7], representing the game board.
+                n: An int representing the column to be played.
+                color: An int of value either 1 or 2, representing the color of the piece being played. Red is 1, yellow is 2.
+
+Effects:        If the move is valid, it will be played, and the function will return 1.
+                Else, the function will print the corresponding message and return 0.
+ */
 int check_move(int b[ROWS][COLS], int n, int color) {
     if (n >= 0 && n < COLS) { // Move valid (so far)
         if (!column_full(b, n)) {
@@ -130,16 +147,16 @@ int check_move(int b[ROWS][COLS], int n, int color) {
     return 0;
 }
 
-// Prompts the player to enter a column into which to place a piece.
-// If the move is valid, makes the move and returns 1.
-// If the move is invalid due to the column being full, prints "Column is full." and returns 0.
-// If the move is invalid due to being out of bounds, prints "Invalid move." and returns 0.
-// Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
-//            and n : the index of the column and color : the color of the token I want to insert ( yellow or red)
-// Effects:  Prompts the player to enter a column into which to place a piece.
-//           If the move is valid, makes the move and returns 1.
-//           If the move is invalid due to the column being full, prints "Column is full." and returns 0.
-//           If the move is invalid due to being out of bounds, prints "Invalid move." and returns 0.
+/*
+Requirements:   b: A 2D array of integers of dimensions [6][7], representing the game board.
+                color: An integer of value either 1 or 2, representing the color of the piece being played. Red is 1, yellow is 2.
+
+Effects:        Prompts the player to enter a column into which to place a piece.
+                If the move is valid, makes the move and returns 1.
+                If the move is invalid due to the column being full, prints "Column is full." and returns 0.
+                If the move is invalid due to being out of bounds, prints "Invalid move." and returns 0.
+
+*/
 int get_move(int b[ROWS][COLS], int color) {
     int n;
     int *point = (int *) &b;
@@ -151,27 +168,32 @@ int get_move(int b[ROWS][COLS], int color) {
     return check_move(point, n, color);
 }
 
-// Adds a piece of the appropriate color (1 or 2, corresponding to red and yellow, respectively)
-// to the chosen column of the board if the column is not full.
-// Otherwise, does nothing.
+/*
+Requirements:   b: A 2D array of integers of dimensions [6][7], representing the game board.
+                col: An int representing the column to be played.
+                color: An integer of value either 1 or 2, representing the color of the piece being played. Red is 1, yellow is 2.
 
-//Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
-//           and n : the index of the column and color : the color of the token I want to insert ( yellow or red)
-//Effects:  Adds a piece of the appropriate color (1 or 2, corresponding to red and yellow, respectively)
-//          to the chosen column of the board if the column is not full.
-//          Otherwise, does nothing.
-void add_move(int b[ROWS][COLS], int col, int colour) {
+Effects:    Adds a piece of the appropriate color (1 for red, 2 for yellow) to the chosen column of the board
+            if the column is not full. Otherwise, does nothing.
+ */
+void add_move(int b[ROWS][COLS], int col, int color) {
     for (int i = ROWS - 1; i >= 0; i--) {
         if (b[i][col] == 0) {
-            b[i][col] = colour;
+            b[i][col] = color;
             break;
         }
 
     }
 }
 
-//Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
-//Effects: generates the bots move
+/*
+Requirements:   board: A 2D array of ints of dimensions [6][7], representing the game board.
+                currentSide:    An int representing the color of the player currently playing.
+                                Since this function will only be called during this bot's turn, it effectively represents the bot's color.
+                                Red is 1, yellow is 2.
+
+Effects:        Chooses what move the bot will make, and returns an int representing the column to be played.
+ */
 int genMove(int board[ROWS][COLS], int currentSide) {
     int x[7] = {0, 0, 0, 0, 0, 0, 0};
     // Check's if it's playing the very first move of the entire game, and if so, plays the center column (considered an advantageous move).
@@ -197,7 +219,7 @@ int genMove(int board[ROWS][COLS], int currentSide) {
         }
     }
 
-    // Checks for horizontal wins (lines of 3 pieces) by either player
+    // Checks for potential horizontal wins (lines of 3 pieces) by either player
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j <= 3; j++) { // Checks only first 4 rows, as starting from columns other prevents creating a row of 4 pieces.
             if (board[i][j] == 0) { // Moves on if space is empty
@@ -221,7 +243,7 @@ int genMove(int board[ROWS][COLS], int currentSide) {
         }
     }
 
-    // Checks for diagonally ascending wins (lines of 3 pieces) by either player (ascending to the right)
+    // Checks for potential diagonally ascending wins (lines of 3 pieces) by either player (ascending to the right)
     for (int i = 0; i <= 3; i++) { // Checks only the first 4 rows
         for (int j = 0; j <= 4; j++) { // and only the first 5 columns
             if (board[i][j] == 0) { // Moves on if space is empty
@@ -242,7 +264,7 @@ int genMove(int board[ROWS][COLS], int currentSide) {
         }
     }
 
-    // Checks for diagonally descending wins (lines of 3 pieces) by either player (descending to the right)
+    // Checks for potential diagonally descending wins (lines of 3 pieces) by either player (descending to the right)
     for (int i = 2; i < ROWS; i++) { // Checks all except the first 2 rows
         for (int j = 0; j <= 4; j++) { // and checks the first 5 columns
             if (board[i][j] == 0) {
@@ -410,13 +432,20 @@ int genMove(int board[ROWS][COLS], int currentSide) {
         }
     }
 
-    return 0; // Returns 0 if there is a tie
+    // If none of the above happen, simply chooses the closest move to the center possible.
+    if !(column_full(board, 3)) {return 3;}
+    if !(column_full(board, 2)) {return 2;}
+    if !(column_full(board, 4)) {return 4;}
+    if !(column_full(board, 1)) {return 1;}
+    if !(column_full(board, 5)) {return 5;}
+    if !(column_full(board, 0)) {return 0;}
+    if !(column_full(board, 6)) {return 6;}
 }
 
 
 
 int main() {
-    char name[20];
+    char name[50];
     char decision;
 
     int winner = 0, currentSide = red, totalTime1 = 0, totalTime2 = 0, status = 0;
