@@ -169,11 +169,7 @@ void add_move(int b[ROWS][COLS], int col, int colour) {
 
     }
 }
-
-//Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
-//Effects: generates the bots move
-int genMove(int board[ROWS][COLS], int currentSide) {
-
+int check3V(int board[ROWS][COLS]) {
     // Checks for vertical wins
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -188,7 +184,9 @@ int genMove(int board[ROWS][COLS], int currentSide) {
             }
         }
     }
+}
 
+int check3H(int board[ROWS][COLS]) {
     // Checks for horizontal wins
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -197,16 +195,18 @@ int genMove(int board[ROWS][COLS], int currentSide) {
             } else {
                 if (board[i][j] == board[i][j + 1] && board[i][j] == board[i][j + 2]) {
                     // add a piece either to the left or the right
-                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))){
+                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))) && (board[i-1][j-1] != 0) {
                         return (j - 1);
-                    } else if (!((j + 3 >= COLS) || (board[i][j + 3] != 0))) {
+                    } else if (!((j + 3 >= COLS) || (board[i][j + 3] != 0))) && (board[i-1][j+4] != 0) {
                         return (j + 3);
                     }
                 }
             }
         }
     }
+}
 
+int check3DA(int board[ROWS][COLS]) {
     // Checks for diagonally ascending wins (ascending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -215,16 +215,18 @@ int genMove(int board[ROWS][COLS], int currentSide) {
             } else {
                 if (board[i][j] == board[i + 1][j + 1] && board[i][j] == board[i + 2][j + 2]) {
                     // add a piece that's to the right and 1 up
-                    if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) {
+                    if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) && (((i-2 < 0) && !(i-1 < 0)) || board[i-2][j-1] != 0) {
                         return (j - 1);
-                    } else if (!((i + 3 >= ROWS) || (j + 3 >= COLS) || (board[i + 3][j + 3] != 0))) {
+                    } else if (!((i + 3 >= ROWS) || (j + 3 >= COLS) || (board[i + 3][j + 3] != 0))) && (board[i+2][j+3] != 0) {
                         return (j + 3);
                     }
                 }
             }
         }
     }
+}
 
+int check3DD(int board[ROWS][COLS]) {
     // Checks for diagonally descending wins (descending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -232,16 +234,18 @@ int genMove(int board[ROWS][COLS], int currentSide) {
                 continue;
             } else {
                 if (board[i][j] == board[i - 1][j + 1] && board[i][j] == board[i - 2][j + 2]) {
-                    if (!((i + 1 >= ROWS) || (j - 1 < 0) || (board[i + 1][j - 1] != 0))) {
+                    if (!((i + 1 >= ROWS) || (j - 1 < 0) || (board[i + 1][j - 1] != 0))) && (board[i][j-1] != 0) {
                         return (j - 1);
-                    } else if (!((i - 3 < ROWS) || (j + 3 >= COLS) || (board[i - 3][j + 3] != 0))) {
+                    } else if (!((i - 3 < ROWS) || (j + 3 >= COLS) || (board[i - 3][j + 3] != 0))) && (board[i][j-1] != 0){
                         return (j + 3);
                     }
                 }
             }
         }
     }
+}
 
+int check2V(int board[ROWS][COLS], int currentSide) {
     // Checks for vertical 2's
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -256,7 +260,9 @@ int genMove(int board[ROWS][COLS], int currentSide) {
             }
         }
     }
+}
 
+int check2H(int board[ROWS][COLS], int currentSide) {
     // Checks for horizontal 2's
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -265,16 +271,18 @@ int genMove(int board[ROWS][COLS], int currentSide) {
             } else {
                 if ((board[i][j] == board[i][j + 1]) && (board[i][j] == currentSide)) {
                     // add a piece either to the left or the right
-                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))){
+                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))) && (board[i-1][j-1] != 0) {
                         return (j - 1);
-                    } else if (!((j + 2 >= COLS) || (board[i][j + 2] != 0))) {
+                    } else if (!((j + 2 >= COLS) || (board[i][j + 2] != 0))) && (board[i-1][j+2] != 0) {
                         return (j + 2);
                     }
                 }
             }
         }
     }
+}
 
+int check2DA(int board[ROWS][COLS], int currentSide) {
     // Checks for diagonally ascending 2's (ascending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -283,16 +291,18 @@ int genMove(int board[ROWS][COLS], int currentSide) {
             } else {
                 if ((board[i][j] == board[i + 1][j + 1]) && (board[i][j] == currentSide)) {
                     // add a piece that's to the right and 1 up
-                    if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) {
+                    if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) && (board[i-2][j-1] != 0) {
                         return (j - 1);
-                    } else if (!((i + 2 >= ROWS) || (j + 2 >= COLS) || (board[i + 2][j + 2] != 0))) {
+                    } else if (!((i + 2 >= ROWS) || (j + 2 >= COLS) || (board[i + 2][j + 2] != 0))) && (board[i+1][j+2] != 0) {
                         return (j + 2);
                     }
                 }
             }
         }
     }
+}
 
+int check2DD(int board[ROWS][COLS], int currentSide) {
     // Checks for diagonally descending 2's (descending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -300,16 +310,18 @@ int genMove(int board[ROWS][COLS], int currentSide) {
                 continue;
             } else {
                 if ((board[i][j] == board[i - 1][j + 1]) && (board[i][j] == currentSide)) {
-                    if (!((i + 1 >= ROWS) || (j - 1 < 0) || (board[i + 1][j - 1] != 0))) {
+                    if (!((i + 1 >= ROWS) || (j - 1 < 0) || (board[i + 1][j - 1] != 0))) && (board[i][j-1] != 0) {
                         return (j - 1);
-                    } else if (!((i - 2 < ROWS) || (j + 2 >= COLS) || (board[i - 2][j + 2] != 0))) {
+                    } else if (!((i - 2 < ROWS) || (j + 2 >= COLS) || (board[i - 2][j + 2] != 0))) && (board[i-3][j+2] != 0) {
                         return (j + 2);
                     }
                 }
             }
         }
     }
+}
 
+int check1V(int board[ROWS][COLS], int currentSide) {
     // Checks for vertical 1's
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -317,14 +329,16 @@ int genMove(int board[ROWS][COLS], int currentSide) {
                 continue;
             } else {
                 if (board[i][j] == currentSide) {
-                    if (!((i + 1 >= ROWS) || (board[i + 1][j] != 0))) {
+                    if (!((i + 1 >= ROWS) || (board[i + 1][j] != 0))) && (board[i][j-1] != 0) {
                         return j;
                     }
                 }
             }
         }
     }
+}
 
+int check1H(int board[ROWS][COLS], int currentSide) {
     // Checks for horizontal 1's
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -333,16 +347,18 @@ int genMove(int board[ROWS][COLS], int currentSide) {
             } else {
                 if (board[i][j] == currentSide) {
                     // add a piece either to the left or the right
-                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))){
+                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))) && (board[i-1][j-1] != 0){
                         return (j - 1);
-                    } else if (!((j + 1 >= COLS) || (board[i][j + 1] != 0))) {
+                    } else if (!((j + 1 >= COLS) || (board[i][j + 1] != 0))) && (board[i-1][j+1] != 0) {
                         return (j + 1);
                     }
                 }
             }
         }
     }
+}
 
+int check1DA(int board[ROWS][COLS], int currentSide) {
     // Checks for diagonally ascending 1's (ascending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -351,16 +367,18 @@ int genMove(int board[ROWS][COLS], int currentSide) {
             } else {
                 if (board[i][j] == currentSide) {
                     // add a piece that's to the right and 1 up
-                    if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) {
+                    if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) && (board[i-2][j-1] != 0) {
                         return (j - 1);
-                    } else if (!((i + 1 >= ROWS) || (j + 1 >= COLS) || (board[i + 1][j + 1] != 0))) {
+                    } else if (!((i + 1 >= ROWS) || (j + 1 >= COLS) || (board[i + 1][j + 1] != 0))) && (board[i][j+1] != 0) {
                         return (j + 1);
                     }
                 }
             }
         }
     }
+}
 
+int check1DD(int board[ROWS][COLS], int currentSide) {
     // Checks for diagonally descending 1's (descending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -368,15 +386,45 @@ int genMove(int board[ROWS][COLS], int currentSide) {
                 continue;
             } else {
                 if ((board[i][j] == board[i - 1][j + 1]) && (board[i][j] == currentSide)) {
-                    if (!((i + 1 >= ROWS) || (j - 1 < 0) || (board[i + 1][j - 1] != 0))) {
+                    if (!((i + 1 >= ROWS) || (j - 1 < 0) || (board[i + 1][j - 1] != 0))) && (board[i][j-1] != 0) {
                         return (j - 1);
-                    } else if (!((i - 1 < ROWS) || (j + 1 >= COLS) || (board[i - 1][j + 1] != 0))) {
+                    } else if (!((i - 1 < ROWS) || (j + 1 >= COLS) || (board[i - 1][j + 1] != 0))) && (board[i-2][j+1] != 0) {
                         return (j + 1);
                     }
                 }
             }
         }
     }
+}
+
+//Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
+//Effects: generates the bots move
+int genMove(int board[ROWS][COLS], int currentSide) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return 0; // Returns 0 if there is a tie
 }
