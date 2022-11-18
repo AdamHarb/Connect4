@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "header.h"
-
+#include <assert.h>
 /*
 Requirements:   board: A 2D array of ints of dimensions [6][7], representing the game board.
 
@@ -159,11 +159,11 @@ Effects:        Prompts the player to enter a column into which to place a piece
 */
 int get_move(int b[ROWS][COLS], int color) {
     int n;
-    int *point = (int *) &b;
+    int **point = (int **) b;
 
     printf("Enter a move: ");
 
-    scanf("%i", &n);
+    scanf("%d", &n);
 
     return check_move(point, n, color);
 }
@@ -459,7 +459,7 @@ int main() {
 
     printf("Would you like play against an AI? (Y/N)\n");
 
-    scanf("%c", &decision);
+    scanf("%s", &decision);
 
     // Main driver loop, which alternates turns until someone wins or the board becomes completely full.
     do {
@@ -473,12 +473,11 @@ int main() {
         clock_t start, end; // Variables for storing the start and end times of each turn to measure the time taken by each player.
         start = clock(); // start is set to current time.
 
-        if (decision == 'Y' || currentSide == red != 0) {
+        if (decision == 'Y' && currentSide == red) {
             status = check_move(mainBoard, genMove(mainBoard, currentSide), currentSide);
         } else {
             status = get_move(mainBoard, currentSide);
         }
-
 
         // Repeatedly calls get_move until the player enters a valid move.
         while (status != 1) {
@@ -508,5 +507,35 @@ int main() {
         printf("%s wins!", totalTime2 > totalTime1 ? "Red"
                                                    : "Yellow"); // Breaks ties by giving the win to the player who took less time.
     }
+
+    // Test cases
+    int testBoard[ROWS][COLS];
+    setup_board(testBoard);
+    assert(testBoard[0][0] == 0);
+    printf("\nBoard has been setup properly!\n");
+    add_move(testBoard, 0, red);
+    display_board(testBoard);
+    assert(testBoard[5][0] == 1);
+    printf("Red's move has been added properly!\n");
+    add_move(testBoard, 0, yellow);
+    assert(testBoard[4][0] == 2);
+    printf("Yellow's move has been added properly!\n");
+    assert(check_move(testBoard, 27, red) == 0);
+    printf("Invalid move has been checked properly!\n");
+    for (int i = 0; i < 4; i++) {
+        add_move(testBoard, 0, red);
+    }
+    display_board(testBoard);
+    assert(column_full(testBoard, 0) == true);
+    printf("Column full has been checked properly!\n");
+    for (int i = 1; i < 7;i++) {
+        for (int j = 0; j < 6; j++) {
+            add_move(testBoard, i, red);
+        }
+    }
+    display_board(testBoard);
+    assert(board_full(testBoard) == true);
+    printf("Board full has been checked properly!\n");
     return 0;
+
 }
