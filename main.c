@@ -536,6 +536,23 @@ int main() {
     display_board(testBoard);
     assert(board_full(testBoard) == true);
     printf("Board full has been checked properly!\n");
-    return 0;
 
+    int sampleBoard[ROWS][COLS];
+    setup_board(sampleBoard);
+    for (int i = 0; i < 3; i++) {
+        add_move(sampleBoard, 0, red);
+        add_move(sampleBoard, 0, red);
+        add_move(sampleBoard, 0, red);
+    }
+    add_move(sampleBoard, genMove(sampleBoard, red), red);
+    assert(winnerF(sampleBoard) == 1);
+    printf("Winner has been checked properly, and the bot has played the proper move to win!\n");
+    int sampleBoard2[ROWS][COLS];
+    for (int i = 0; i < 3; i++) {
+        add_move(sampleBoard2, i, yellow);
+    }
+    add_move(sampleBoard2, genMove(sampleBoard2, red), red);
+    assert(winnerF(sampleBoard2) == 0);
+    printf("The lack of a winner has been checked properly, and the bot has properly blocked the opponent from winning!\n");
+    return 0;
 }
