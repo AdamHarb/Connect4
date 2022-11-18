@@ -169,7 +169,11 @@ void add_move(int b[ROWS][COLS], int col, int colour) {
 
     }
 }
-int check3V(int board[ROWS][COLS]) {
+
+//Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
+//Effects: generates the bots move
+int genMove(int board[ROWS][COLS], int currentSide) {
+
     // Checks for vertical wins
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -184,9 +188,7 @@ int check3V(int board[ROWS][COLS]) {
             }
         }
     }
-}
 
-int check3H(int board[ROWS][COLS]) {
     // Checks for horizontal wins
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -204,9 +206,7 @@ int check3H(int board[ROWS][COLS]) {
             }
         }
     }
-}
 
-int check3DA(int board[ROWS][COLS]) {
     // Checks for diagonally ascending wins (ascending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -224,9 +224,7 @@ int check3DA(int board[ROWS][COLS]) {
             }
         }
     }
-}
 
-int check3DD(int board[ROWS][COLS]) {
     // Checks for diagonally descending wins (descending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -243,9 +241,7 @@ int check3DD(int board[ROWS][COLS]) {
             }
         }
     }
-}
 
-int check2V(int board[ROWS][COLS], int currentSide) {
     // Checks for vertical 2's
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -260,9 +256,7 @@ int check2V(int board[ROWS][COLS], int currentSide) {
             }
         }
     }
-}
 
-int check2H(int board[ROWS][COLS], int currentSide) {
     // Checks for horizontal 2's
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -280,9 +274,7 @@ int check2H(int board[ROWS][COLS], int currentSide) {
             }
         }
     }
-}
 
-int check2DA(int board[ROWS][COLS], int currentSide) {
     // Checks for diagonally ascending 2's (ascending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -300,9 +292,7 @@ int check2DA(int board[ROWS][COLS], int currentSide) {
             }
         }
     }
-}
 
-int check2DD(int board[ROWS][COLS], int currentSide) {
     // Checks for diagonally descending 2's (descending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -319,9 +309,7 @@ int check2DD(int board[ROWS][COLS], int currentSide) {
             }
         }
     }
-}
 
-int check1V(int board[ROWS][COLS], int currentSide) {
     // Checks for vertical 1's
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -336,9 +324,7 @@ int check1V(int board[ROWS][COLS], int currentSide) {
             }
         }
     }
-}
 
-int check1H(int board[ROWS][COLS], int currentSide) {
     // Checks for horizontal 1's
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -356,9 +342,7 @@ int check1H(int board[ROWS][COLS], int currentSide) {
             }
         }
     }
-}
 
-int check1DA(int board[ROWS][COLS], int currentSide) {
     // Checks for diagonally ascending 1's (ascending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -376,9 +360,7 @@ int check1DA(int board[ROWS][COLS], int currentSide) {
             }
         }
     }
-}
 
-int check1DD(int board[ROWS][COLS], int currentSide) {
     // Checks for diagonally descending 1's (descending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -395,36 +377,6 @@ int check1DD(int board[ROWS][COLS], int currentSide) {
             }
         }
     }
-}
-
-//Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
-//Effects: generates the bots move
-int genMove(int board[ROWS][COLS], int currentSide) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     return 0; // Returns 0 if there is a tie
 }
