@@ -172,7 +172,7 @@ void add_move(int b[ROWS][COLS], int col, int colour) {
 
 //Requires : an int [] [] that represents a board of certain dimensions however in our case it is a 6 x 7
 //Effects: generates the bots move
-int genMove(int board[ROWS][COLS]) {
+int genMove(int board[ROWS][COLS], int currentSide) {
 
     // Checks for vertical wins
     for (int i = 0; i < ROWS; i++) {
@@ -248,7 +248,7 @@ int genMove(int board[ROWS][COLS]) {
             if (board[i][j] = 0) { //checks if the cell at i and j is not empty, 0 stands for empty cell
                 continue;
             } else {
-                if (board[i][j] == board[i + 1][j]) {
+                if ((board[i][j] == board[i + 1][j]) && (board[i][j] == currentSide)) {
                     if (!((i + 2 >= ROWS) || (board[i + 2][j] != 0))) {
                         return j;
                     }
@@ -263,7 +263,7 @@ int genMove(int board[ROWS][COLS]) {
             if (board[i][j] = 0) { //checks if the cell at i and j is not empty
                 continue;
             } else {
-                if (board[i][j] == board[i][j + 1]) {
+                if ((board[i][j] == board[i][j + 1]) && (board[i][j] == currentSide)) {
                     // add a piece either to the left or the right
                     if (!((j - 1 < 0) || (board[i][j - 1] != 0))){
                         return (j - 1);
@@ -281,7 +281,7 @@ int genMove(int board[ROWS][COLS]) {
             if (board[i][j] = 0) { //checks if the cell at i and j is not empty
                 continue;
             } else {
-                if (board[i][j] == board[i + 1][j + 1]) {
+                if ((board[i][j] == board[i + 1][j + 1]) && (board[i][j] == currentSide)) {
                     // add a piece that's to the right and 1 up
                     if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) {
                         return (j - 1);
@@ -299,7 +299,7 @@ int genMove(int board[ROWS][COLS]) {
             if (board[i][j] = 0) { //checks if the cell at i and j is not empty
                 continue;
             } else {
-                if (board[i][j] == board[i - 1][j + 1]) {
+                if ((board[i][j] == board[i - 1][j + 1]) && (board[i][j] == currentSide)) {
                     if (!((i + 1 >= ROWS) || (j - 1 < 0) || (board[i + 1][j - 1] != 0))) {
                         return (j - 1);
                     } else if (!((i - 2 < ROWS) || (j + 2 >= COLS) || (board[i - 2][j + 2] != 0))) {
@@ -316,9 +316,62 @@ int genMove(int board[ROWS][COLS]) {
             if (board[i][j] = 0) { //checks if the cell at i and j is not empty, 0 stands for empty cell
                 continue;
             } else {
-                if (board[i][j]) {
+                if (board[i][j] == currentSide) {
                     if (!((i + 1 >= ROWS) || (board[i + 1][j] != 0))) {
                         return j;
+                    }
+                }
+            }
+        }
+    }
+
+    // Checks for horizontal 1's
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty
+                continue;
+            } else {
+                if (board[i][j] == currentSide) {
+                    // add a piece either to the left or the right
+                    if (!((j - 1 < 0) || (board[i][j - 1] != 0))){
+                        return (j - 1);
+                    } else if (!((j + 1 >= COLS) || (board[i][j + 1] != 0))) {
+                        return (j + 1);
+                    }
+                }
+            }
+        }
+    }
+
+    // Checks for diagonally ascending 1's (ascending to the right)
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty
+                continue;
+            } else {
+                if (board[i][j] == currentSide) {
+                    // add a piece that's to the right and 1 up
+                    if (!((i - 1 < 0) || (j - 1 < 0) || (board[i - 1][j - 1] != 0))) {
+                        return (j - 1);
+                    } else if (!((i + 1 >= ROWS) || (j + 1 >= COLS) || (board[i + 1][j + 1] != 0))) {
+                        return (j + 1);
+                    }
+                }
+            }
+        }
+    }
+
+    // Checks for diagonally descending 1's (descending to the right)
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty
+                continue;
+            } else {
+                if ((board[i][j] == board[i - 1][j + 1]) && (board[i][j] == currentSide)) {
+                    if (!((i + 1 >= ROWS) || (j - 1 < 0) || (board[i + 1][j - 1] != 0))) {
+                        return (j - 1);
+                    } else if (!((i - 1 < ROWS) || (j + 1 >= COLS) || (board[i - 1][j + 1] != 0))) {
+                        return (j + 1);
                     }
                 }
             }
@@ -360,7 +413,7 @@ int main() {
         start = clock(); // start is set to current time.
 
         if (decision == 'Y' || currentSide == red != 0) {
-            status = check_move(mainBoard, genMove(mainBoard), currentSide);
+            status = check_move(mainBoard, genMove(mainBoard, currentSide), currentSide);
         } else {
             status = get_move(mainBoard, currentSide);
         }
