@@ -177,17 +177,13 @@ int genMove(int board[ROWS][COLS]) {
     // Checks for vertical wins
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
-            if (board[i][j] != 0) { //checks if the cell at i and j is not empty, 0 stands for empty cell
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty, 0 stands for empty cell
                 continue;
             } else {
                 if ((board[i][j] == board[i + 1][j]) && (board[i][j] == board[i + 2][j])) {
                     if (!((i + 3 >= ROWS) || (board[i + 3][j] != 0))) {
                         return j;
-                    } else {
-                        continue;
                     }
-                } else {
-                    continue;
                 }
             }
         }
@@ -196,7 +192,7 @@ int genMove(int board[ROWS][COLS]) {
     // Checks for horizontal wins
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
-            if (board[i][j] != 0) { //checks if the cell at i and j is not empty
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty
                 continue;
             } else {
                 if (board[i][j] == board[i][j + 1] && board[i][j] == board[i][j + 2]) {
@@ -205,11 +201,7 @@ int genMove(int board[ROWS][COLS]) {
                         return (j - 1);
                     } else if (!((j + 3 >= COLS) || (board[i][j + 3] != 0))) {
                         return (j + 3);
-                    } else {
-                        continue;
                     }
-                } else {
-                    continue;
                 }
             }
         }
@@ -218,7 +210,7 @@ int genMove(int board[ROWS][COLS]) {
     // Checks for diagonally ascending wins (ascending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
-            if (board[i][j] != 0) { //checks if the cell at i and j is not empty
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty
                 continue;
             } else {
                 if (board[i][j] == board[i + 1][j + 1] && board[i][j] == board[i + 2][j + 2]) {
@@ -227,11 +219,7 @@ int genMove(int board[ROWS][COLS]) {
                         return (j - 1);
                     } else if (!((i + 3 >= ROWS) || (j + 3 >= COLS) || (board[i + 3][j + 3] != 0))) {
                         return (j + 3);
-                    } else {
-                        continue;
                     }
-                } else {
-                    continue;
                 }
             }
         }
@@ -240,7 +228,7 @@ int genMove(int board[ROWS][COLS]) {
     // Checks for diagonally descending wins (descending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
-            if (board[i][j] != 0) { //checks if the cell at i and j is not empty
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty
                 continue;
             } else {
                 if (board[i][j] == board[i - 1][j + 1] && board[i][j] == board[i - 2][j + 2]) {
@@ -248,11 +236,7 @@ int genMove(int board[ROWS][COLS]) {
                         return (j - 1);
                     } else if (!((i - 3 < ROWS) || (j + 3 >= COLS) || (board[i - 3][j + 3] != 0))) {
                         return (j + 3);
-                    } else {
-                        continue;
                     }
-                } else {
-                    continue;
                 }
             }
         }
@@ -261,17 +245,13 @@ int genMove(int board[ROWS][COLS]) {
     // Checks for vertical 2's
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
-            if (board[i][j] != 0) { //checks if the cell at i and j is not empty, 0 stands for empty cell
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty, 0 stands for empty cell
                 continue;
             } else {
                 if (board[i][j] == board[i + 1][j]) {
                     if (!((i + 2 >= ROWS) || (board[i + 2][j] != 0))) {
                         return j;
-                    } else {
-                        continue;
                     }
-                } else {
-                    continue;
                 }
             }
         }
@@ -280,7 +260,7 @@ int genMove(int board[ROWS][COLS]) {
     // Checks for horizontal 2's
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
-            if (board[i][j] != 0) { //checks if the cell at i and j is not empty
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty
                 continue;
             } else {
                 if (board[i][j] == board[i][j + 1]) {
@@ -289,11 +269,7 @@ int genMove(int board[ROWS][COLS]) {
                         return (j - 1);
                     } else if (!((j + 2 >= COLS) || (board[i][j + 2] != 0))) {
                         return (j + 2);
-                    } else {
-                        continue;
                     }
-                } else {
-                    continue;
                 }
             }
         }
@@ -302,7 +278,7 @@ int genMove(int board[ROWS][COLS]) {
     // Checks for diagonally ascending 2's (ascending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
-            if (board[i][j] != 0) { //checks if the cell at i and j is not empty
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty
                 continue;
             } else {
                 if (board[i][j] == board[i + 1][j + 1]) {
@@ -311,20 +287,16 @@ int genMove(int board[ROWS][COLS]) {
                         return (j - 1);
                     } else if (!((i + 2 >= ROWS) || (j + 2 >= COLS) || (board[i + 2][j + 2] != 0))) {
                         return (j + 2);
-                    } else {
-                        continue;
                     }
-                } else {
-                    continue;
                 }
             }
         }
     }
 
-    // Checks for diagonally descending wins (descending to the right)
+    // Checks for diagonally descending 2's (descending to the right)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
-            if (board[i][j] != 0) { //checks if the cell at i and j is not empty
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty
                 continue;
             } else {
                 if (board[i][j] == board[i - 1][j + 1]) {
@@ -332,11 +304,22 @@ int genMove(int board[ROWS][COLS]) {
                         return (j - 1);
                     } else if (!((i - 2 < ROWS) || (j + 2 >= COLS) || (board[i - 2][j + 2] != 0))) {
                         return (j + 2);
-                    } else {
-                        continue;
                     }
-                } else {
-                    continue;
+                }
+            }
+        }
+    }
+
+    // Checks for vertical 1's
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (board[i][j] = 0) { //checks if the cell at i and j is not empty, 0 stands for empty cell
+                continue;
+            } else {
+                if (board[i][j]) {
+                    if (!((i + 1 >= ROWS) || (board[i + 1][j] != 0))) {
+                        return j;
+                    }
                 }
             }
         }
